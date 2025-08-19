@@ -13,7 +13,6 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
 ---
 
 ## 📂 Sample Data
-## CODE 
 ```sql
 SELECT * FROM sample_sales_data LIMIT 5;
 ```
@@ -27,8 +26,9 @@ SELECT * FROM sample_sales_data LIMIT 5;
 | 10145   | 45              | 83.26     | 6           | 3746.7  | 25/8/03   | Shipped | 3       | 8     | 2003 | Motorcycles | 95  | S10\_1678   | Toys4GrownUps.com        | 6265557265  | 78934 Hillside Dr.            |              | Pasadena      | CA    | 90003      | USA     | NA        | Young           | Julie            | Medium   |
 | 10159   | 49              | 100       | 14          | 5205.27 | 10/10/03  | Shipped | 4       | 10    | 2003 | Motorcycles | 95  | S10\_1678   | Corporate Gift Ideas Co. | 6505551386  | 7734 Strong St.               |              | San Francisco | CA    |            | USA     | NA        | Brown           | Julie            | Medium   |
 ## 2.Customer-Level Metrics Query
-## Code
-``SELECT 
+
+```sql
+SELECT 
     CUSTOMERNAME,
     ROUND(SUM(SALES),0) AS CLV,
     COUNT(DISTINCT ORDERNUMBER) AS FREQUENCY,
@@ -40,7 +40,8 @@ SELECT * FROM sample_sales_data LIMIT 5;
     ) AS CUSTOMER_RECENCY
 FROM SAMPLE_SALES_DATA
 GROUP BY CUSTOMERNAME
-LIMIT 5;``
+LIMIT 5;
+```
 
 ## Output:
 
@@ -54,8 +55,8 @@ LIMIT 5;``
 
 
 ## 3.Creating View For Segmentation 
-## CODE:
 
+```sql
 CREATE VIEW RFM_SEGMENTATION_DATA AS
 WITH CLV AS 
 (
@@ -110,14 +111,17 @@ SELECT
         ELSE "Other"
     END AS CUSTOMER_SEGMENT
 FROM RFM_COMBINATION RC;
+```
 
 
 ## 4.Final Segmentation
 ## CODE:
 
-``SELECT * 
+```sql
+SELECT * 
 FROM RFM_SEGMENTATION_DATA
-LIMIT 5;``
+LIMIT 5;
+```
 
 | CustomerName            | Last\_Transaction\_Date | Recency | Frequency | Total\_Qty\_Ordered | MonetaryValue | R\_Score | F\_Score | M\_Score | Total\_RFM\_Score | RFM\_Combination | Segment   |
 | ----------------------- | ----------------------- | ------- | --------- | ------------------- | ------------- | -------- | -------- | -------- | ----------------- | ---------------- | --------- |
@@ -130,15 +134,16 @@ LIMIT 5;``
 
 ## 5.Final RFM
 
-## CODE:
-``SELECT
+```sql
+SELECT
 	CUSTOMER_SEGMENT,
     SUM(MONETARY_VALUE) AS TOTAL_SPENDING,
     ROUND(AVG(MONETARY_VALUE),0) AS AVERAGE_SPENDING,
     SUM(FREQUENCY_VALUE) AS TOTAL_ORDER,
     SUM(TOTAL_QTY_ORDERED) AS TOTAL_QTY_ORDERED
 FROM RFM_SEGMENTATION_DATA
-GROUP BY CUSTOMER_SEGMENT;``
+GROUP BY CUSTOMER_SEGMENT;
+```
 
 ## Output:
 
