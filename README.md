@@ -106,7 +106,7 @@ SELECT
             THEN 'About to Sleep'
         ELSE "Other"
     END AS CUSTOMER_SEGMENT
-FROM RFM_COMBINATION RC;```
+FROM RFM_COMBINATION RC;``
 ## output
 
 ## Final Segmentation
