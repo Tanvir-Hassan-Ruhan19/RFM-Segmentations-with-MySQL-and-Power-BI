@@ -159,5 +159,34 @@ GROUP BY CUSTOMER_SEGMENT;``
 - Segmenting customers by **RFM** enables businesses to:
   - Optimize marketing campaigns  
   - Improve customer retention strategies  
-  - Focus on high-value customers for long-term growth 
+  - Focus on high-value customers for long-term growth
+ 
+  ### 📝 Customer RFM Calculation Query
+
+**SQL Code:**
+
+```sql
+SELECT 
+    CUSTOMERNAME,
+    ROUND(SUM(SALES), 0) AS CLV,
+    COUNT(DISTINCT ORDERNUMBER) AS FREQUENCY,
+    SUM(QUANTITYORDERED) AS TOTAL_QTY_ORDERED,
+    MAX(STR_TO_DATE(ORDERDATE, '%d/%m/%y')) AS CUSTOMER_LAST_TRANSACTION_DATE,
+    DATEDIFF(
+        (SELECT MAX(STR_TO_DATE(ORDERDATE, '%d/%m/%y')) FROM SAMPLE_SALES_DATA), 
+        MAX(STR_TO_DATE(ORDERDATE, '%d/%m/%y'))
+    ) AS CUSTOMER_RECENCY
+FROM SAMPLE_SALES_DATA
+GROUP BY CUSTOMERNAME
+LIMIT 5;
+
+
+| CUSTOMERNAME              | CLV  | FREQUENCY | TOTAL\_QTY\_ORDERED | CUSTOMER\_LAST\_TRANSACTION\_DATE | CUSTOMER\_RECENCY |
+| ------------------------- | ---- | --------- | ------------------- | --------------------------------- | ----------------- |
+| Atelier graphique         | 540  | 3         | 36                  | 2004-11-25                        | 7                 |
+| Signal Gift Stores        | 1517 | 4         | 53                  | 2004-12-17                        | 5                 |
+| Australian Collectors Co. | 882  | 2         | 50                  | 2005-01-05                        | 3                 |
+| La Rochelle Gifts         | 3105 | 5         | 89                  | 2005-02-08                        | 1                 |
+| Baane Mini Imports        | 3874 | 6         | 120                 | 2005-02-08                        | 1                 |
+
 
