@@ -107,7 +107,7 @@ SELECT
         ELSE "Other"
     END AS CUSTOMER_SEGMENT
 FROM RFM_COMBINATION RC;```
-
+## output
 
 ## Final Segmentation
 ## CODE:
