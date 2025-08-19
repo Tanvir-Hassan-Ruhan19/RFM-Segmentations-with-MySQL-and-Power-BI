@@ -115,8 +115,6 @@ FROM RFM_COMBINATION RC;
 
 
 ## 4.Final Segmentation
-## CODE:
-
 ```sql
 SELECT * 
 FROM RFM_SEGMENTATION_DATA
