@@ -11,7 +11,12 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
 - ✅ Aggregated segment-level metrics for business analysis  
 
 ---
-
+## Create and use database 
+```sql
+create database RFM_SALES;
+USE RFM_SALES;
+```
+**Than we use Table Data Import Wizard for Bulk insertion of Data**
 ## 1.Sample Data
 ```sql
 SELECT * FROM sample_sales_data LIMIT 5;
