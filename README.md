@@ -15,7 +15,7 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
 ## 📂 Sample Data
 
 ## CODE 
-`` SELECT * FROM sample_sales_data LIMIT 5; ``
+```SELECT * FROM sample_sales_data LIMIT 5;```
 
 ## Output
 | OrderNo | QuantityOrdered | PriceEach | OrderLineNo | Sales   | OrderDate | Status  | Quarter | Month | Year | ProductLine | MSR | ProductCode | CustomerName             | Phone       | AddressLine1                  | AddressLine2 | City          | State | PostalCode | Country | Territory | ContactLastName | ContactFirstName | DealSize |
@@ -28,7 +28,7 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
 
 ## Code
 ## 2.Customer-Level Metrics Query
-`` SELECT 
+``SELECT 
     CUSTOMERNAME,
     ROUND(SUM(SALES),0) AS CLV,
     COUNT(DISTINCT ORDERNUMBER) AS FREQUENCY,
@@ -40,7 +40,7 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
     ) AS CUSTOMER_RECENCY
 FROM SAMPLE_SALES_DATA
 GROUP BY CUSTOMERNAME
-LIMIT 5;``
+LIMIT 5;
 
 ## Output:
 
