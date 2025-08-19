@@ -48,7 +48,7 @@ LIMIT 5;
 | Australian Collectables, Ltd | 129183 | 3         | 1410                | 2005-05-09              | 22      |
 
 
-## Creating View For Segmentation 
+## Creating View For Segmentation
 -- RFM SEGMENTATION
 CREATE VIEW RFM_SEGMENTATION_DATA AS
 WITH CLV AS 
