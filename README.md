@@ -33,7 +33,7 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
     SUM(QUANTITYORDERED) AS TOTAL_QTY_ORDERED,
     MAX(STR_TO_DATE(ORDERDATE,'%d/%m/%y')) AS CUSTOMER_LAST_TRASACTION_DATE,
     DATEDIFF(
-        (SELECT MAX(STR_TO_DATE(ORDERDATE, '%d/%m/%y')) FROM SAMPLE_SALES_DATA), -- subquery first runs
+        (SELECT MAX(STR_TO_DATE(ORDERDATE, '%d/%m/%y')) FROM SAMPLE_SALES_DATA),
         MAX(STR_TO_DATE(ORDERDATE, '%d/%m/%y'))
     ) AS CUSTOMER_RECENCY
 FROM SAMPLE_SALES_DATA
