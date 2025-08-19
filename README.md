@@ -15,7 +15,7 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
 ## 📂 Sample Data
 
 ## CODE 
-``` SELECT * FROM sample_sales_data LIMIT 5;```
+`` SELECT * FROM sample_sales_data LIMIT 5; ``
 
 ## Output
 | OrderNo | QuantityOrdered | PriceEach | OrderLineNo | Sales   | OrderDate | Status  | Quarter | Month | Year | ProductLine | MSR | ProductCode | CustomerName             | Phone       | AddressLine1                  | AddressLine2 | City          | State | PostalCode | Country | Territory | ContactLastName | ContactFirstName | DealSize |
@@ -28,7 +28,7 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
 
 ## Code
 ## 2.Customer-Level Metrics Query
-SELECT 
+`` SELECT 
     CUSTOMERNAME,
     ROUND(SUM(SALES),0) AS CLV,
     COUNT(DISTINCT ORDERNUMBER) AS FREQUENCY,
@@ -40,7 +40,8 @@ SELECT
     ) AS CUSTOMER_RECENCY
 FROM SAMPLE_SALES_DATA
 GROUP BY CUSTOMERNAME
-LIMIT 5;
+LIMIT 5; ``
+
 ## Output:
 
 | CustomerName                 | CLV    | Frequency | Total\_Qty\_Ordered | Last\_Transaction\_Date | Recency |
@@ -55,7 +56,7 @@ LIMIT 5;
 ## 3.Creating View For Segmentation 
 ## CODE:
 -- RFM SEGMENTATION
-CREATE VIEW RFM_SEGMENTATION_DATA AS
+ CREATE VIEW RFM_SEGMENTATION_DATA AS
 WITH CLV AS 
 (
     SELECT
@@ -110,6 +111,7 @@ SELECT
     END AS CUSTOMER_SEGMENT
 FROM RFM_COMBINATION RC;
 
+
 ## Final Segmentation
 ## CODE:
 
@@ -160,5 +162,5 @@ GROUP BY CUSTOMER_SEGMENT;
 - Segmenting customers by **RFM** enables businesses to:
   - Optimize marketing campaigns  
   - Improve customer retention strategies  
-  - Focus on high-value customers for long-term growth
+  - Focus on high-value customers for long-term growth 
 
