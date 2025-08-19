@@ -53,7 +53,6 @@ LIMIT 5;``
 
 ## 3.Creating View For Segmentation 
 ## CODE:
--- RFM SEGMENTATION
  ``CREATE VIEW RFM_SEGMENTATION_DATA AS
 WITH CLV AS 
 (
