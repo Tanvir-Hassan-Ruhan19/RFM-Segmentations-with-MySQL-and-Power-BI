@@ -110,13 +110,16 @@ SELECT *
 FROM RFM_SEGMENTATION_DATA
 LIMIT 5;
 
-| CustomerName            | Last\_Transaction\_Date | Recency | Frequency | Total\_Qty\_Ordered | MonetaryValue | R\_Score | F\_Score | M\_Score | Total\_RFM\_Score | RFM\_Combination | Segment   |
-| ----------------------- | ----------------------- | ------- | --------- | ------------------- | ------------- | -------- | -------- | -------- | ----------------- | ---------------- | --------- |
-| Boards & Toys Co.       | 2005-02-08              | 112     | 2         | 204                 | 18259         | 4        | 2        | 1        | 7                 | 421              | Champions |
-| Atelier graphique       | 2004-11-25              | 187     | 3         | 540                 | 48360         | 3        | 3        | 1        | 7                 | 331              | Champions |
-| Auto-Moto Classics Inc. | 2004-12-03              | 179     | 3         | 574                 | 52959         | 3        | 3        | 1        | 7                 | 331              | Champions |
-| Microscale Inc.         | 2004-11-03              | 209     | 2         | 762                 | 66290         | 2        | 1        | 1        | 4                 | 211              | Champions |
-| Royale Belge            | 2005-01-10              | 141     | 4         | 556                 | 66880         | 4        | 5        | 1        | 10                | 451              | Champions |
+# Segment Output
+
+| CUSTOMERNAME            | CUSTOMER\_LAST\_TRANSACTION\_DATE | RECENCY\_VALUE | FREQUENCY\_VALUE | TOTAL\_QTY\_ORDERED | MONETARY\_VALUE | R\_SCORE | F\_SCORE | M\_SCORE | TOTAL\_RFM\_SCORE | RFM\_COMBINATION | CUSTOMER\_SEGMENT |
+| ----------------------- | --------------------------------- | -------------- | ---------------- | ------------------- | --------------- | -------- | -------- | -------- | ----------------- | ---------------- | ----------------- |
+| Boards & Toys Co.       | 2005-02-08                        | 112            | 2                | 204                 | 18,259          | 4        | 2        | 1        | 7                 | 421              | Champions         |
+| Atelier graphique       | 2004-11-25                        | 187            | 3                | 540                 | 48,360          | 3        | 3        | 1        | 7                 | 331              | Champions         |
+| Auto-Moto Classics Inc. | 2004-12-03                        | 179            | 3                | 574                 | 52,959          | 3        | 3        | 1        | 7                 | 331              | Champions         |
+| Microscale Inc.         | 2004-11-03                        | 209            | 2                | 762                 | 66,290          | 2        | 1        | 1        | 4                 | 211              | Champions         |
+| Royale Belge            | 2005-01-10                        | 141            | 4                | 556                 | 66,880          | 4        | 5        | 1        | 10                | 451              | Champions         |
+
 
 
 # Final RFM CODE;
