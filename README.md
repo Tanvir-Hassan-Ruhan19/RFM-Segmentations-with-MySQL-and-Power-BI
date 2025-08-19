@@ -15,7 +15,7 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
 ## 📂 Sample Data
 
 ## CODE 
-`` SELECT * FROM sample_sales_data LIMIT 5;
+``` SELECT * FROM sample_sales_data LIMIT 5;```
 
 ## Output
 | OrderNo | QuantityOrdered | PriceEach | OrderLineNo | Sales   | OrderDate | Status  | Quarter | Month | Year | ProductLine | MSR | ProductCode | CustomerName             | Phone       | AddressLine1                  | AddressLine2 | City          | State | PostalCode | Country | Territory | ContactLastName | ContactFirstName | DealSize |
