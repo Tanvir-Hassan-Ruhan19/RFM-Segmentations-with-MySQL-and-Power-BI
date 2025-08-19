@@ -12,7 +12,7 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
 
 ---
 
-## 📂 Sample Data
+## 1.Sample Data
 ```sql
 SELECT * FROM sample_sales_data LIMIT 5;
 ```
