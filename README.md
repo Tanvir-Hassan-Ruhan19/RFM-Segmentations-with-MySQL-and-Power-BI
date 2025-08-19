@@ -1,21 +1,26 @@
 # 📊 RFM Segmentation Project
 
 ## 🧠 Project Overview
-This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Segmentation** workflow using MySQL and Power BI. It classifies customers into meaningful segments for actionable insights.  
+This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Segmentation** workflow using MySQL.  
+The goal is to classify customers into meaningful segments for actionable business insights.
 
 **Key Steps:**
 - ✅ Created a dedicated MySQL database (`RFM_SALES`)  
 - ✅ Inserted sample customer data into `SAMPLE_SALES_DATA` table  
 - ✅ Calculated customer-level metrics: CLV, Frequency, Total Quantity Ordered, Recency  
 - ✅ Performed RFM Segmentation and created a view `RFM_SEGMENTATION_DATA`  
-- ✅ Aggregated segment-level metrics for business analysis  
+- ✅ Aggregated segment-level metrics for strategic decision making  
 
 ---
 
-## 📂 Sample Data
+## 1️⃣ Preview Sample Data
 
 ```sql
 SELECT * FROM sample_sales_data LIMIT 5;
+
+
+## Output
+
 | OrderNo | QuantityOrdered | PriceEach | OrderLineNo | Sales   | OrderDate | Status  | Quarter | Month | Year | ProductLine | MSR | ProductCode | CustomerName             | Phone       | AddressLine1                  | AddressLine2 | City          | State | PostalCode | Country | Territory | ContactLastName | ContactFirstName | DealSize |
 | ------- | --------------- | --------- | ----------- | ------- | --------- | ------- | ------- | ----- | ---- | ----------- | --- | ----------- | ------------------------ | ----------- | ----------------------------- | ------------ | ------------- | ----- | ---------- | ------- | --------- | --------------- | ---------------- | -------- |
 | 10107   | 30              | 95.7      | 2           | 2871    | 24/2/03   | Shipped | 1       | 2     | 2003 | Motorcycles | 95  | S10\_1678   | Land of Toys Inc.        | 2125557818  | 897 Long Airport Avenue       |              | NYC           | NY    | 10022      | USA     | NA        | Yu              | Kwai             | Small    |
@@ -25,6 +30,8 @@ SELECT * FROM sample_sales_data LIMIT 5;
 | 10159   | 49              | 100       | 14          | 5205.27 | 10/10/03  | Shipped | 4       | 10    | 2003 | Motorcycles | 95  | S10\_1678   | Corporate Gift Ideas Co. | 6505551386  | 7734 Strong St.               |              | San Francisco | CA    |            | USA     | NA        | Brown           | Julie            | Medium   |
 
 
+
+-- Customer-Level Metrics Query
 SELECT 
     CUSTOMERNAME,
     ROUND(SUM(SALES),0) AS CLV,
@@ -32,24 +39,28 @@ SELECT
     SUM(QUANTITYORDERED) AS TOTAL_QTY_ORDERED,
     MAX(STR_TO_DATE(ORDERDATE,'%d/%m/%y')) AS CUSTOMER_LAST_TRASACTION_DATE,
     DATEDIFF(
-        (SELECT MAX(STR_TO_DATE(ORDERDATE, '%d/%m/%y')) FROM SAMPLE_SALES_DATA), -- subquery first runs
+        (SELECT MAX(STR_TO_DATE(ORDERDATE, '%d/%m/%y')) FROM SAMPLE_SALES_DATA),
         MAX(STR_TO_DATE(ORDERDATE, '%d/%m/%y'))
     ) AS CUSTOMER_RECENCY
 FROM SAMPLE_SALES_DATA
 GROUP BY CUSTOMERNAME
 LIMIT 5;
 
-| CustomerName                 | CLV    | Frequency | Total\_Qty\_Ordered | Last\_Transaction\_Date | Recency |
-| ---------------------------- | ------ | --------- | ------------------- | ----------------------- | ------- |
-| Alpha Cognac                 | 140977 | 3         | 1374                | 2005-03-28              | 64      |
-| Amica Models & Co.           | 188235 | 2         | 1686                | 2004-09-09              | 264     |
-| Anna's Decorations, Ltd      | 307992 | 4         | 2938                | 2005-03-09              | 83      |
-| Atelier graphique            | 48360  | 3         | 540                 | 2004-11-25              | 187     |
-| Australian Collectables, Ltd | 129183 | 3         | 1410                | 2005-05-09              | 22      |
+Output:
+
+| CustomerName                 | CLV     | Frequency | Total Qty Ordered | Last Transaction Date | Recency |
+| ---------------------------- | ------- | --------- | ----------------- | --------------------- | ------- |
+| Alpha Cognac                 | 140,977 | 3         | 1,374             | 2005-03-28            | 64      |
+| Amica Models & Co.           | 188,235 | 2         | 1,686             | 2004-09-09            | 264     |
+| Anna's Decorations, Ltd      | 307,992 | 4         | 2,938             | 2005-03-09            | 83      |
+| Atelier graphique            | 48,360  | 3         | 540               | 2004-11-25            | 187     |
+| Australian Collectables, Ltd | 129,183 | 3         | 1,410             | 2005-05-09            | 22      |
 
 
-## Creating View For Segmentation
--- RFM SEGMENTATION
+
+-- Creating View For Segmentation
+
+
 CREATE VIEW RFM_SEGMENTATION_DATA AS
 WITH CLV AS 
 (
@@ -66,7 +77,6 @@ WITH CLV AS
     FROM SAMPLE_SALES_DATA
     GROUP BY CUSTOMERNAME
 ),
-
 RFM_SCORE AS
 (
     SELECT 
@@ -76,7 +86,6 @@ RFM_SCORE AS
         NTILE(5) OVER(ORDER BY MONETARY_VALUE ASC) AS M_SCORE
     FROM CLV AS C
 ),
-
 RFM_COMBINATION AS
 (
     SELECT
@@ -85,32 +94,24 @@ RFM_COMBINATION AS
         CONCAT_WS('', R_SCORE, F_SCORE, M_SCORE) AS RFM_COMBINATION
     FROM RFM_SCORE AS R
 )
-
 SELECT
     RC.*,
     CASE
-        WHEN RFM_COMBINATION IN (455, 515, 542, 544, 552, 553, 452, 545, 554, 555) 
-            THEN "Champions"
-        WHEN RFM_COMBINATION IN (344, 345, 353, 354, 355, 443, 451, 342, 351, 352, 441, 442, 444, 445, 453, 454, 541, 543, 515, 551) 
-            THEN 'Loyal Customers'
-        WHEN RFM_COMBINATION IN (513, 413, 511, 411, 512, 341, 412, 343, 514) 
-            THEN 'Potential Loyalists'
-        WHEN RFM_COMBINATION IN (414, 415, 214, 211, 212, 213, 241, 251, 312, 314, 311, 313, 315, 243, 245, 252, 253, 255, 242, 244, 254) 
-            THEN 'Promising Customers'
-        WHEN RFM_COMBINATION IN (141, 142, 143, 144, 151, 152, 155, 145, 153, 154, 215) 
-            THEN 'Needs Attention'
-        WHEN RFM_COMBINATION IN (113, 111, 112, 114, 115) 
-            THEN 'About to Sleep'
+        WHEN RFM_COMBINATION IN (455, 515, 542, 544, 552, 553, 452, 545, 554, 555) THEN "Champions"
+        WHEN RFM_COMBINATION IN (344, 345, 353, 354, 355, 443, 451, 342, 351, 352, 441, 442, 444, 445, 453, 454, 541, 543, 515, 551) THEN 'Loyal Customers'
+        WHEN RFM_COMBINATION IN (513, 413, 511, 411, 512, 341, 412, 343, 514) THEN 'Potential Loyalists'
+        WHEN RFM_COMBINATION IN (414, 415, 214, 211, 212, 213, 241, 251, 312, 314, 311, 313, 315, 243, 245, 252, 253, 255, 242, 244, 254) THEN 'Promising Customers'
+        WHEN RFM_COMBINATION IN (141, 142, 143, 144, 151, 152, 155, 145, 153, 154, 215) THEN 'Needs Attention'
+        WHEN RFM_COMBINATION IN (113, 111, 112, 114, 115) THEN 'About to Sleep'
         ELSE "Other"
     END AS CUSTOMER_SEGMENT
 FROM RFM_COMBINATION RC;
 
-# Final Segmentation
+-- Preview Segmentation View
+
 SELECT * 
 FROM RFM_SEGMENTATION_DATA
 LIMIT 5;
-
-# Segment Output
 
 | CUSTOMERNAME            | CUSTOMER\_LAST\_TRANSACTION\_DATE | RECENCY\_VALUE | FREQUENCY\_VALUE | TOTAL\_QTY\_ORDERED | MONETARY\_VALUE | R\_SCORE | F\_SCORE | M\_SCORE | TOTAL\_RFM\_SCORE | RFM\_COMBINATION | CUSTOMER\_SEGMENT |
 | ----------------------- | --------------------------------- | -------------- | ---------------- | ------------------- | --------------- | -------- | -------- | -------- | ----------------- | ---------------- | ----------------- |
@@ -122,10 +123,10 @@ LIMIT 5;
 
 
 
-# Final RFM CODE;
+-- Segment-Level Aggregation
 
 SELECT
-	CUSTOMER_SEGMENT,
+    CUSTOMER_SEGMENT,
     SUM(MONETARY_VALUE) AS TOTAL_SPENDING,
     ROUND(AVG(MONETARY_VALUE),0) AS AVERAGE_SPENDING,
     SUM(FREQUENCY_VALUE) AS TOTAL_ORDER,
@@ -147,5 +148,11 @@ Output:
 | Lost/Inactive       | 6,148,617      | 558,965          | 80           | 61,298            |
 
 
+## 🔑 Key Insights
 
-
+- **Champions** and **Loyal Customers** are high-value segments, representing the most profitable and engaged customers.  
+- **Needs Attention** and **About to Sleep** indicate customers that require re-engagement campaigns to prevent churn.  
+- Segmenting customers by **RFM** enables businesses to:
+  - Optimize marketing campaigns  
+  - Improve customer retention strategies  
+  - Focus on high-value customers for long-term growth
