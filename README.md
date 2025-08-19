@@ -53,7 +53,7 @@ LIMIT 5;``
 
 ## 3.Creating View For Segmentation 
 ## CODE:
-``CREATE VIEW RFM_SEGMENTATION_DATA AS
+`CREATE VIEW RFM_SEGMENTATION_DATA AS
 WITH CLV AS 
 (
     SELECT
@@ -106,8 +106,8 @@ SELECT
             THEN 'About to Sleep'
         ELSE "Other"
     END AS CUSTOMER_SEGMENT
-FROM RFM_COMBINATION RC;``
-## output
+FROM RFM_COMBINATION RC;`
+
 
 ## Final Segmentation
 ## CODE:
