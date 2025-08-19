@@ -110,7 +110,7 @@ SELECT
 FROM RFM_COMBINATION RC;
 
 
-## Final Segmentation
+## 4.Final Segmentation
 ## CODE:
 
 ``SELECT * 
@@ -126,7 +126,7 @@ LIMIT 5;``
 | Royale Belge            | 2005-01-10              | 141     | 4         | 556                 | 66880         | 4        | 5        | 1        | 10                | 451              | Champions |
 
 
-## Final RFM
+## 5.Final RFM
 
 ## CODE:
 ``SELECT
