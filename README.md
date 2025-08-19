@@ -40,7 +40,7 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
     ) AS CUSTOMER_RECENCY
 FROM SAMPLE_SALES_DATA
 GROUP BY CUSTOMERNAME
-LIMIT 5; ``
+LIMIT 5;``
 
 ## Output:
 
@@ -115,9 +115,9 @@ FROM RFM_COMBINATION RC; ``
 ## Final Segmentation
 ## CODE:
 
-SELECT * 
+`` SELECT * 
 FROM RFM_SEGMENTATION_DATA
-LIMIT 5;
+LIMIT 5; ``
 
 | CustomerName            | Last\_Transaction\_Date | Recency | Frequency | Total\_Qty\_Ordered | MonetaryValue | R\_Score | F\_Score | M\_Score | Total\_RFM\_Score | RFM\_Combination | Segment   |
 | ----------------------- | ----------------------- | ------- | --------- | ------------------- | ------------- | -------- | -------- | -------- | ----------------- | ---------------- | --------- |
