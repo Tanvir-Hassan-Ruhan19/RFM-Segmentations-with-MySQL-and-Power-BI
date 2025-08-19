@@ -15,7 +15,7 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
 ## 📂 Sample Data
 
 ## CODE 
-```SELECT * FROM sample_sales_data LIMIT 5;```
+```SELECT * FROM sample_sales_data LIMIT 5;
 
 ## Output
 | OrderNo | QuantityOrdered | PriceEach | OrderLineNo | Sales   | OrderDate | Status  | Quarter | Month | Year | ProductLine | MSR | ProductCode | CustomerName             | Phone       | AddressLine1                  | AddressLine2 | City          | State | PostalCode | Country | Territory | ContactLastName | ContactFirstName | DealSize |
@@ -25,10 +25,9 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
 | 10134   | 41              | 94.74     | 2           | 3884.34 | 1/7/03    | Shipped | 3       | 7     | 2003 | Motorcycles | 95  | S10\_1678   | Lyon Souveniers          | +33 1 46... | 27 rue du Colonel Pierre Avia |              | Paris         |       | 75508      | France  | EMEA      | Da Cunha        | Daniel           | Medium   |
 | 10145   | 45              | 83.26     | 6           | 3746.7  | 25/8/03   | Shipped | 3       | 8     | 2003 | Motorcycles | 95  | S10\_1678   | Toys4GrownUps.com        | 6265557265  | 78934 Hillside Dr.            |              | Pasadena      | CA    | 90003      | USA     | NA        | Young           | Julie            | Medium   |
 | 10159   | 49              | 100       | 14          | 5205.27 | 10/10/03  | Shipped | 4       | 10    | 2003 | Motorcycles | 95  | S10\_1678   | Corporate Gift Ideas Co. | 6505551386  | 7734 Strong St.               |              | San Francisco | CA    |            | USA     | NA        | Brown           | Julie            | Medium   |
-
-## Code
 ## 2.Customer-Level Metrics Query
-``SELECT 
+## Code
+```SELECT 
     CUSTOMERNAME,
     ROUND(SUM(SALES),0) AS CLV,
     COUNT(DISTINCT ORDERNUMBER) AS FREQUENCY,
