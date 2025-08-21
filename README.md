@@ -11,6 +11,7 @@ This project demonstrates an **end-to-end RFM (Recency, Frequency, Monetary) Seg
 - ✅ Aggregated segment-level metrics for business analysis  
 
 ---
+## Power BI Live Dashboar: https://app.powerbi.com/groups/me/reports/9782bc82-2901-4204-a2ad-fb0415f1d920/4dd64848b6a009302173?experience=power-bi
 ## Create and use database 
 ```sql
 create database RFM_SALES;
